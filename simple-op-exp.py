@@ -23,12 +23,6 @@ except exception.ClientError as e:
     print("failed to connect to the cluster with", config["hosts"])
     sys.exit(1)
 
-
-def show_msg(record):
-    k, _, b = record
-    print("Message {}: {}".format(k[2], b))
-
-
 client.truncate(options.namespace, options.set, 0)
 
 input("\nAdd a record, then get its last-update-time information as bins")

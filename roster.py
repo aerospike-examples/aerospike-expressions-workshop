@@ -31,6 +31,7 @@ try:
     client.remove(key)
 except:
     pass
+policy = {"key": aerospike.POLICY_KEY_SEND}
 list_policy = {
     "write_flags": aerospike.LIST_WRITE_ADD_UNIQUE
     | aerospike.LIST_WRITE_PARTIAL
@@ -53,7 +54,8 @@ roster_2016 = [
     "Kevin A",
 ]
 _, _, b = client.operate(
-    key, [lh.list_append_items("roster", roster_2016, list_policy), oh.read("roster")]
+    key, [lh.list_append_items("roster", roster_2016, list_policy),
+        oh.read("roster")], policy=policy
 )
 print(b)
 
@@ -89,6 +91,8 @@ add_2017 = [
     "Eric R",
     "Nico C",
 ]
+print("Remove the players {}".format(remove_2017))
+print("Add the players {}".format(add_2017))
 ops = [
     opexp.expression_write("tmp", current),
     lh.list_append_items("roster", add_2017, list_policy),
@@ -108,6 +112,8 @@ input("\nUpdate the 2018 roster")
 remove_2018 = ["Eric R", "Mateo M", "Abel C", "Kevin A"]
 # add 5 new players to the roster
 add_2018 = ["Jack B", "Miles H", "Adrian H", "Max M", "Christian C", "Steve V", "Teilo"]
+print("Remove the players {}".format(remove_2018))
+print("Add the players {}".format(add_2018))
 ops = [
     opexp.expression_write("tmp", current),
     lh.list_append_items("roster", add_2018, list_policy),
@@ -136,6 +142,8 @@ add_2019 = [
     "Casten S",
     "Gavin W",
 ]
+print("Remove the players {}".format(remove_2019))
+print("Add the players {}".format(add_2019))
 ops = [
     opexp.expression_write("tmp", current),
     lh.list_append_items("roster", add_2019, list_policy),
